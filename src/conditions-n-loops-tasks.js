@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,14 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  if (a >= b && a >= c) {
+    return a;
+  }
+  if (b >= a && b >= c) {
+    return b;
+  }
+  return c;
 }
 
 /**
@@ -60,8 +66,12 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  return (
+    queen.x === king.x ||
+    queen.y === king.y ||
+    Math.abs(queen.x - king.x) === Math.abs(queen.y - king.y)
+  );
 }
 
 /**
@@ -100,8 +110,24 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  if (num < 1 || num > 39) {
+    throw new Error('Number should be between 1 and 39.');
+  }
+
+  let result = '';
+  let remainingNum = num;
+  const numerals = ['X', 'IX', 'V', 'IV', 'I'];
+  const values = [10, 9, 5, 4, 1];
+
+  for (let i = 0; i < numerals.length; i += 1) {
+    while (remainingNum >= values[i]) {
+      result += numerals[i];
+      remainingNum -= values[i];
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -135,8 +161,16 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const len = str.length;
+
+  for (let i = 0; i < Math.floor(len / 2); i += 1) {
+    if (str[i] !== str[len - 1 - i]) {
+      return false;
+    }
+  }
+
+  return true;
 }
 
 /**
@@ -145,7 +179,7 @@ function isPalindrome(/* str */) {
  *
  * @param {string} str - The string to search.
  * @param {string} letter - The letter to find.
- * @return {number} The index of the first occurrence of the letter, or -1 if not found.
+ * @return {boolean} The index of the first occurrence of the letter, or -1 if not found.
  *
  * @example:
  *  'qwerty', 'q'     => 0
@@ -172,8 +206,18 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let tempNum = num;
+
+  while (tempNum > 0) {
+    const lastDigit = tempNum % 10;
+    if (lastDigit === digit) {
+      return true;
+    }
+    tempNum = Math.floor(tempNum / 10);
+  }
+
+  return false;
 }
 
 /**
